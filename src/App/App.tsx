@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import {DayleTable} from '../components/Table/DayleTable';
+import {DailyTable} from '../components/Table/DailyTable';
 
 export const App = () => {
     return (
         <div className="App">
-            <DayleTable/>
+            <DailyTable/>
         </div>
     );
 }
