@@ -3,7 +3,6 @@ import {TextField} from '@mui/material';
 
 type EditableSpanType = {
     value: string
-    // editMode: boolean
     onChange: (value: string) => void
 }
 
@@ -25,6 +24,7 @@ export const EditableSpan = ({value, onChange}: EditableSpanType) => {
         setEditMode(false)
         onChange(title)
     }
+
 
     return !value || editMode
         ? <TextField value={title} onChange={changeTitle} placeholder={'bla'} onBlur={activateViewMode} autoFocus variant="standard"/>
