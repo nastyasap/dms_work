@@ -1,10 +1,19 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {dailyTableReducer} from './dailyTable-reducer';
+import {combineReducers, configureStore, getDefaultMiddleware,} from '@reduxjs/toolkit';
+import createSagaMiddleware from '@redux-saga/core';
+import { dailyTableSlice } from './reducers/dailyTable-reducer';
+import rootSaga from './sagas';
 
 const rootReducer = combineReducers({
-    table: dailyTableReducer
+    [dailyTableSlice.name]: dailyTableSlice.reducer
 })
+
+const sagaMiddleware = createSagaMiddleware()
 
 export const store = configureStore({
     reducer: rootReducer,
+    middleware: [sagaMiddleware],
 })
+
+export type AppState = ReturnType<typeof store.getState> 
+
+sagaMiddleware.run(rootSaga)
