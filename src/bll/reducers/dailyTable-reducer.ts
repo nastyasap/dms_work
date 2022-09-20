@@ -17,11 +17,15 @@ export const dailyTableSlice = createSlice({
         loadTableRequest(state, action: PayloadAction<number>) {
             state.isLoading = true
             state.id = action.payload
-        }, 
+        },
         loadTableSucess(state, action: PayloadAction<DailyTableType[]>) {
             state.isLoading = false
             state.dailyTable = action.payload
         },
+        updateRow(state, action: PayloadAction<{ data: Partial<DailyTableType>, rowId: number }>) {
+            const index = state.dailyTable.findIndex(obj => obj.rowId === action.payload.rowId)
+            state.dailyTable[index] = {...state.dailyTable[index], ...action.payload.data}
+        }
 
     }
 })

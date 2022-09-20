@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {EditableTableRow} from './TableRow/TableRow';
+import {useEffect} from './react';
 
 // function createData(
 //     name: string,
@@ -53,6 +54,10 @@ export const StyledTableRow = styled(TableRow)(({theme}) => ({
 const tableCell = ['Номер авто', 'ФИО водителя', 'Наличные за смену', 'Борт', 'Мойка', 'Газ', 'Бензин', 'Другие расходы', 'Аванс', 'Итого']
 
 export const DailyTable = () => {
+    const dispatch = useDispatch()
+    
+    useEffect(() => {}, [])
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 700}} aria-label="customized table">
