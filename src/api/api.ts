@@ -51,7 +51,7 @@ export const dailyTableApi = {
         return instance.get(`/getTable`, { params: {tableId}})
     },
 
-    updateDataTable(tableId: number, rowId: number, data: DailyTableType) {
+    updateDataTable(tableId: number, rowId: number, data: Partial<DailyTableType>) {
         return instance.put(`/getTable`, {data}, { params: {tableId, rowId}})
     },
 
@@ -72,5 +72,5 @@ export type DailyTableType = {
     spendings?: number
     avans?: number
     total: number
-    addedDate: number
+    addedDate: any
 }

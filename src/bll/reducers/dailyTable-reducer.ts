@@ -1,10 +1,56 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {DailyTableType} from '../../api/api';
 
-const initialState = {
-    dailyTable: [] as Array<DailyTableType>,
+interface InitialState {
+    dailyTable: DailyTableType[];
+    isLoading: boolean;
+    id: number | null;    
+}
+const initialState: InitialState = {
+    dailyTable: [
+        {
+            rowId: 123,
+            autoNumber: 1234,
+            name: 'Ivanov',
+            cash: 65,
+            bort: 10,
+            washing: 3,
+            gas: 17,
+            fuel: 0,
+            spendings: 0,
+            avans: 0,
+            total: 123,
+            addedDate: '20/09/2022/10:59',
+        }, {
+            rowId: 123,
+            autoNumber: 1234,
+            name: 'Ivanov',
+            cash: 65,
+            bort: 10,
+            washing: 3,
+            gas: 17,
+            fuel: 0,
+            spendings: 0,
+            avans: 0,
+            total: 123,
+            addedDate: '20/09/2022/10:59',
+        }, {
+            rowId: 123,
+            autoNumber: 1234,
+            name: 'Ivanov',
+            cash: 65,
+            bort: 0,
+            washing: 0,
+            gas: 17,
+            fuel: 0,
+            spendings: 0,
+            avans: 0,
+            total: 123,
+            addedDate: '20/09/2022/10:59',
+        },
+    ],
     isLoading: false,
-    id: null as null | number
+    id: null,
 }
 
 export const dailyTableSlice = createSlice({

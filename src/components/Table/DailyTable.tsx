@@ -8,22 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {EditableTableRow} from './TableRow/TableRow';
-import {useEffect} from './react';
-
-// function createData(
-//     name: string,
-//     cash: number,
-//     gas: number,
-//     total: number,
-//     autoNumber?: number,
-//     bort?: number,
-//     washing?: number,
-//     fuel?: number,
-//     spendings?: number,
-//     avans?: number,
-// ) {
-//     return {autoNumber, name, cash, bort, washing, gas, fuel, spendings, avans, total};
-// }
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {dailyTableSlice} from '../../bll/reducers/dailyTable-reducer';
+import {getTable} from '../../bll/selectors/dailyTable';
 
 export const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -45,18 +33,15 @@ export const StyledTableRow = styled(TableRow)(({theme}) => ({
     },
 }));
 
-// const rows = [
-//     createData('Frozen yoghurt', 3456, 159, 6.0, 24, 4.0, 90, 40, 6, 5),
-//     createData('Ice cream sandwich', 1234, 237, 9.0, 37, 4.3, 237, 9.0, 37, 4.3),
-//     createData('Eclair', 2345, 262, 16.0, 24, 6.0, 237, 9.0, 37, 4.3),
-// ];
-
 const tableCell = ['Номер авто', 'ФИО водителя', 'Наличные за смену', 'Борт', 'Мойка', 'Газ', 'Бензин', 'Другие расходы', 'Аванс', 'Итого']
 
 export const DailyTable = () => {
+    const data = useSelector(getTable)
     const dispatch = useDispatch()
-    
-    useEffect(() => {}, [])
+
+    useEffect(() => {
+        dispatch(dailyTableSlice.actions.loadTableRequest(787))
+    }, [])
 
     return (
         <TableContainer component={Paper}>
@@ -69,23 +54,9 @@ export const DailyTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/*{rows.map((row) => (*/}
-                    {/*    <StyledTableRow key={row.name}>*/}
-                    {/*        <StyledTableCell align="center">{row.autoNumber}</StyledTableCell>*/}
-                    {/*        <StyledTableCell component="th" scope="row">*/}
-                    {/*            {row.name}*/}
-                    {/*        </StyledTableCell>*/}
-                    {/*        <StyledTableCell align="center">{row.cash}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.bort}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.washing}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.gas}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.fuel}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.spendings}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.avans}</StyledTableCell>*/}
-                    {/*        <StyledTableCell align="right">{row.total}</StyledTableCell>*/}
-                    {/*    </StyledTableRow>*/}
-                    {/*))}*/}
-                    <EditableTableRow/>
+                    {data.map((row) => {
+                        return <EditableTableRow key={row.rowId} rowData={row}/>
+                    })}
                 </TableBody>
             </Table>
         </TableContainer>

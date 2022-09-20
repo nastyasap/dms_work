@@ -2,7 +2,7 @@ import {ChangeEvent, useState} from 'react';
 import {TextField} from '@mui/material';
 
 type EditableSpanType = {
-    value: string
+    value: any
     onChange: (value: string) => void
 }
 

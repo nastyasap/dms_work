@@ -15,9 +15,7 @@ function* addRowToDailyTable({payload}: ReturnType<typeof dailyTableSlice.action
 
 function* updateRowInDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.updateRow>) {
     const id: number = yield select(getTableId)
-    const data: DailyTableType = yield select((state) => getRow(state, payload.rowId))
-    const updatedData = {...data, ...payload.data}
-    yield call(dailyTableApi.updateDataTable, id, payload.rowId, updatedData)
+    yield call(dailyTableApi.updateDataTable, id, payload.rowId, payload.data)
 }
 
 
