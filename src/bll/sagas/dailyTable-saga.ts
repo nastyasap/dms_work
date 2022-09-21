@@ -1,7 +1,7 @@
-import {all, call, put, takeEvery, takeLatest, select} from '@redux-saga/core/effects'
-import {dailyTableApi, DailyTableType} from '../../api/api'
+import {all, call, put, select, takeLatest} from '@redux-saga/core/effects'
+import {dailyTableApi} from '../../api/api'
 import {dailyTableSlice} from '../reducers/dailyTable-reducer'
-import {getRow, getTableId} from '../selectors/dailyTable';
+import {getTableId} from '../selectors/dailyTable';
 
 function* fetchDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.loadTableRequest>) {
     const {data} = yield call(dailyTableApi.getDataTable, payload);

@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const dailyTableApi = {
     getDataTable(tableId: number) {
-        return Promise.resolve([
+        return Promise.resolve({data:[
             {
                 rowId: 123,
                 autoNumber: 1234,
@@ -47,7 +47,7 @@ export const dailyTableApi = {
                 total: 123,
                 addedDate: '20/09/2022/10:59',
             },
-        ])
+        ]})
         return instance.get(`/getTable`, { params: {tableId}})
     },
 

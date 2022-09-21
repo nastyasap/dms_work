@@ -26,7 +26,7 @@ export const EditableSpan = ({value, onChange}: EditableSpanType) => {
     }
 
 
-    return !value || editMode
+    return editMode
         ? <TextField value={title} onChange={changeTitle} placeholder={'bla'} onBlur={activateViewMode} autoFocus variant="standard"/>
-        : <span onDoubleClick={activateEditMode}>{value}</span>
+        : <span onClick={activateEditMode}>{value}</span>
 }
