@@ -23,26 +23,26 @@ export const EditableTableRow: React.FC<Props> = ({rowData}) => {
         console.log(e.key)
     }
 
-    const onChangeHandler = (value: any) => {
-        dispatch(dailyTableSlice.actions.updateRow({data: value, rowId: rowData.rowId}))
+    const onChangeHandler = (cellName: string) => (value: string) => {
+        dispatch(dailyTableSlice.actions.updateRow({data: {[cellName]: value}, rowId: rowData.rowId}))
     }
 
-    const createCell = (value: any, align?: "center" | "inherit" | "left" | "right" | "justify") => {
+    const createCell = (cellName: string, value: any, align?: "center" | "inherit" | "left" | "right" | "justify") => {
         return <StyledTableCell align={align || 'center'} onKeyDown={onKeyPressHandler}>
-            <EditableSpan value={value} onChange={() => onChangeHandler(value)}/>
+            <EditableSpan value={value} onChange={onChangeHandler(cellName)}/>
         </StyledTableCell>
     }
 
     return <StyledTableRow>
-        {createCell(rowData.autoNumber)}
-        {createCell(rowData.name)}
-        {createCell(rowData.cash)}
-        {createCell(rowData.bort)}
-        {createCell(rowData.washing)}
-        {createCell(rowData.gas)}
-        {createCell(rowData.fuel)}
-        {createCell(rowData.spendings)}
-        {createCell(rowData.avans)}
-        {createCell(rowData.total)}
+        {createCell('autoNumber',rowData.autoNumber)}
+        {createCell('name', rowData.name)}
+        {createCell('cash', rowData.cash)}
+        {createCell('bort', rowData.bort)}
+        {createCell('washing', rowData.washing)}
+        {createCell('gas', rowData.gas)}
+        {createCell('fuel', rowData.fuel)}
+        {createCell('spendings', rowData.spendings)}
+        {createCell('avans', rowData.avans)}
+        {createCell('total', rowData.total)}
     </StyledTableRow>
 }
