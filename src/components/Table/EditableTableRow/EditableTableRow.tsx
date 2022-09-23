@@ -1,8 +1,8 @@
 import {EditableSpan} from '../../../common/EditableSpan/EditableSpan';
 import * as React from 'react';
 import {KeyboardEvent} from 'react';
-import {StyledTableCell, StyledTableRow} from '../DailyTable';
 import {DailyTableRow} from '../../../api/api';
+import {StyledTableCell, StyledTableRow} from '../StyledTable';
 
 interface Props {
     rowData: DailyTableRow
