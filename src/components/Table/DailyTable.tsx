@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {EditableTableRow} from './EditableTableRow/EditableTableRow';
 import {useDispatch, useSelector} from 'react-redux';
-import {dailyTableSlice, EMPTY_DATA} from '../../bll/reducers/dailyTable-reducer';
+import {dailyTableSlice} from '../../bll/reducers/dailyTable-reducer';
 import {getTable} from '../../bll/selectors/dailyTable-selector';
 import {StyledTableCell} from './StyledTable';
 
@@ -23,12 +23,11 @@ export const DailyTable = () => {
         dispatch(dailyTableSlice.actions.loadTableRequest(787))
     }, [dispatch])
 
-    const onUpdateDataHandler = (rowId: number) => (cellName: string) => (value: string) => {
-        dispatch(dailyTableSlice.actions.updateRow({data: {[cellName]: value}, rowId}))
-    }
+    const onUpdateDataHandler = (rowId: number | null) => (cellName: string) => (value: string) => {
+        rowId
+            ? dispatch(dailyTableSlice.actions.updateRow({data: {[cellName]: value}, rowId}))
+            : dispatch(dailyTableSlice.actions.addRow({[cellName]: value}))
 
-    const onAddDataHandler = (cellName: string) => (value: string) => {
-        dispatch(dailyTableSlice.actions.addRow( {[cellName]: value}))
     }
 
     return (
@@ -43,9 +42,9 @@ export const DailyTable = () => {
                 </TableHead>
                 <TableBody>
                     {data.map((row) => {
-                        return <EditableTableRow key={row.rowId} rowData={row} onChangeData={onUpdateDataHandler(row.rowId)}/>
+                        return <EditableTableRow key={row.rowId} rowData={row}
+                                                 onChangeData={onUpdateDataHandler(row.rowId)}/>
                     })}
-                    <EditableTableRow rowData={EMPTY_DATA} onChangeData={onAddDataHandler}/>
                 </TableBody>
             </Table>
         </TableContainer>

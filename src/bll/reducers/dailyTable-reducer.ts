@@ -40,7 +40,7 @@ export const dailyTableSlice = createSlice({
         },
         loadTableSucess(state, action: PayloadAction<DailyTableRow[]>) {
             state.isLoading = false
-            state.dailyTable = action.payload
+            state.dailyTable = [...action.payload, EMPTY_DATA]
         },
         updateRow(state, action: PayloadAction<{ data: Partial<DailyTableRow>, rowId: number }>) {
             const index = state.dailyTable.findIndex(obj => obj.rowId === action.payload.rowId)

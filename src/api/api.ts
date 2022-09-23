@@ -8,7 +8,7 @@ export const dailyTableApi = {
     getDataTable(tableId: number) {
         return Promise.resolve({data:[
             {
-                rowId: 123,
+                rowId: 12,
                 autoNumber: 1234,
                 name: 'Ivanov',
                 cash: 65,
@@ -18,7 +18,6 @@ export const dailyTableApi = {
                 fuel: 0,
                 spendings: 0,
                 avans: 0,
-                total: 123,
                 addedDate: '20/09/2022/10:59',
             },{
                 rowId: 123,
@@ -31,10 +30,9 @@ export const dailyTableApi = {
                 fuel: 0,
                 spendings: 0,
                 avans: 0,
-                total: 123,
                 addedDate: '20/09/2022/10:59',
             },{
-                rowId: 123,
+                rowId: 1234,
                 autoNumber: 1234,
                 name: 'Ivanov',
                 cash: 65,
@@ -44,7 +42,6 @@ export const dailyTableApi = {
                 fuel: 0,
                 spendings: 0,
                 avans: 0,
-                total: 123,
                 addedDate: '20/09/2022/10:59',
             },
         ]})

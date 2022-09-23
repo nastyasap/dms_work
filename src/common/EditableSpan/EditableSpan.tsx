@@ -2,31 +2,32 @@ import {ChangeEvent, useState} from 'react';
 import {TextField} from '@mui/material';
 
 type EditableSpanType = {
-    value: any
+    value: string
     onChange: (value: string) => void
 }
 
 export const EditableSpan = ({value, onChange}: EditableSpanType) => {
     const [title, setTitle] = useState(value)
-    const [editMode, setEditMode] = useState(false)
+    // const [editMode, setEditMode] = useState(false)
 
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-    const activateEditMode = () => {
-        setEditMode(true)
-        setTitle(value)
-    }
+    // const activateEditMode = () => {
+    //     setEditMode(true)
+    //     setTitle(value)
+    // }
 
     const activateViewMode = () => {
-        setEditMode(false)
+        // setEditMode(false)
         onChange(title)
     }
 
 
-    return editMode
-        ? <TextField value={title} onChange={changeTitle} placeholder={'bla'} onBlur={activateViewMode} autoFocus variant="standard"/>
-        : <span onClick={activateEditMode}>{value}</span>
-}
+    return (
+        // editMode
+        <TextField value={title} onChange={changeTitle} placeholder={'bla'} onBlur={activateViewMode} autoFocus variant="standard"/>
+        // : <span onClick={activateEditMode}>{value}</span>
+)}
