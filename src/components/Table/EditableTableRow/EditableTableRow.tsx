@@ -2,16 +2,16 @@ import {EditableSpan} from '../../../common/EditableSpan/EditableSpan';
 import * as React from 'react';
 import {KeyboardEvent} from 'react';
 import {StyledTableCell, StyledTableRow} from '../DailyTable';
-import {DailyTableType} from '../../../api/api';
-import {useDispatch} from 'react-redux';
-import {dailyTableSlice} from '../../../bll/reducers/dailyTable-reducer';
+import {DailyTableRow} from '../../../api/api';
 
 interface Props {
-    rowData: DailyTableType
+    rowData: DailyTableRow
+    onChangeData: (cellName: string) => (value: string) => void
 }
 
-export const EditableTableRow: React.FC<Props> = ({rowData}) => {
-    const dispatch = useDispatch()
+export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData}) => {
+    // @ts-ignore
+    const total: number =   rowData.cash + rowData.bort - rowData.gas - rowData.fuel - rowData.washing - rowData.avans - rowData.spendings
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLTableCellElement>) => {
         if (e.key === 'Enter') {
@@ -23,13 +23,10 @@ export const EditableTableRow: React.FC<Props> = ({rowData}) => {
         console.log(e.key)
     }
 
-    const onChangeHandler = (cellName: string) => (value: string) => {
-        dispatch(dailyTableSlice.actions.updateRow({data: {[cellName]: value}, rowId: rowData.rowId}))
-    }
 
     const createCell = (cellName: string, value: any, align?: "center" | "inherit" | "left" | "right" | "justify") => {
         return <StyledTableCell align={align || 'center'} onKeyDown={onKeyPressHandler}>
-            <EditableSpan value={value} onChange={onChangeHandler(cellName)}/>
+            <EditableSpan value={value} onChange={onChangeData(cellName)}/>
         </StyledTableCell>
     }
 
@@ -43,6 +40,6 @@ export const EditableTableRow: React.FC<Props> = ({rowData}) => {
         {createCell('fuel', rowData.fuel)}
         {createCell('spendings', rowData.spendings)}
         {createCell('avans', rowData.avans)}
-        {createCell('total', rowData.total)}
+        {createCell('total', total)}
     </StyledTableRow>
 }

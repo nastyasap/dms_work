@@ -48,29 +48,28 @@ export const dailyTableApi = {
                 addedDate: '20/09/2022/10:59',
             },
         ]})
-        return instance.get(`/getTable`, { params: {tableId}})
+        return instance.get<DailyTableRow[]>(`/getTable`, { params: {tableId}})
     },
 
-    updateDataTable(tableId: number, rowId: number, data: Partial<DailyTableType>) {
-        return instance.put(`/getTable`, {data}, { params: {tableId, rowId}})
+    updateDataTable(tableId: number, rowId: number, data: Partial<DailyTableRow>) {
+        return instance.put<DailyTableRow>(`/getTable`, {data}, { params: {tableId, rowId}})
     },
 
-    createDataTable(tableId: number, data: DailyTableType) {
-        return instance.post(`/getTable`, {data}, { params: {tableId}})
+    createDataTable(tableId: number, data: Partial<DailyTableRow>)  {
+        return instance.post<DailyTableRow>(`/getTable`, {data}, { params: {tableId}})
     },
 }
 
-export type DailyTableType = {
+export type DailyTableRow = {
     rowId: number
-    autoNumber?: number
-    name: string
-    cash: number
-    bort?: number
-    washing?: number
-    gas?: number
-    fuel?: number
-    spendings?: number
-    avans?: number
-    total: number
-    addedDate: any
+    autoNumber?: number | null
+    name: string | null
+    cash: number | null
+    bort?: number | null
+    washing?: number | null
+    gas?: number | null
+    fuel?: number | null
+    spendings?: number | null
+    avans?: number | null
+    addedDate: number | null
 }

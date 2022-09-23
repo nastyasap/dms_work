@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,10 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {EditableTableRow} from './EditableTableRow/EditableTableRow';
-import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {dailyTableSlice} from '../../bll/reducers/dailyTable-reducer';
-import {getTable} from '../../bll/selectors/dailyTable';
+import {dailyTableSlice, EMPTY_DATA} from '../../bll/reducers/dailyTable-reducer';
+import {getTable} from '../../bll/selectors/dailyTable-selector';
 
 export const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -41,7 +41,15 @@ export const DailyTable = () => {
 
     useEffect(() => {
         dispatch(dailyTableSlice.actions.loadTableRequest(787))
-    }, [])
+    }, [dispatch])
+
+    const onUpdateDataHandler = (rowId: number) => (cellName: string) => (value: string) => {
+        dispatch(dailyTableSlice.actions.updateRow({data: {[cellName]: value}, rowId}))
+    }
+
+    const onAddDataHandler = (cellName: string) => (value: string) => {
+        dispatch(dailyTableSlice.actions.addRow( {[cellName]: value}))
+    }
 
     return (
         <TableContainer component={Paper}>
@@ -55,9 +63,9 @@ export const DailyTable = () => {
                 </TableHead>
                 <TableBody>
                     {data.map((row) => {
-                        return <EditableTableRow key={row.rowId} rowData={row}/>
+                        return <EditableTableRow key={row.rowId} rowData={row} onChangeData={onUpdateDataHandler(row.rowId)}/>
                     })}
-                    {/*<EditableTableRow rowData={data}/>*/}
+                    <EditableTableRow rowData={EMPTY_DATA} onChangeData={onAddDataHandler}/>
                 </TableBody>
             </Table>
         </TableContainer>
