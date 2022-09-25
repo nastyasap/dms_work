@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Calendar from 'react-calendar';
-// import s from './Calendar.module.scss'
+import s from './Calendar.module.scss'
 import 'react-calendar/dist/Calendar.css'
-import {DailyTable} from '../Table/DailyTable';
-import {Link, useNavigate} from 'react-router-dom';
-import {Navigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 export const CalendarWithData = () => {
     const navigate = useNavigate()
@@ -17,12 +15,12 @@ export const CalendarWithData = () => {
 
     }
     return (
-        <div className={''}>
+        <div className={s.container}>
             <Calendar  onChange={onChangeHandler} value={value} calendarType={'ISO 8601'}/>
             {editMode &&
                 <div>
-                    <button onClick={() => navigate('/dailyTable')}>Утро</button>
-                    <button>Вечер</button>
+                    <button onClick={() => navigate(`/dailyTable:${value}:1`)}>Утро</button>
+                    <button onClick={() => navigate(`/dailyTable:${value}:0`)}>Вечер</button>
                 </div>
             }
         </div>

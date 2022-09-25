@@ -16,6 +16,7 @@ import {StyledTableCell} from './StyledTable';
 const TABLE_CELLS = ['Номер авто', 'ФИО водителя', 'Наличные за смену', 'Борт', 'Мойка', 'Газ', 'Бензин', 'Другие расходы', 'Аванс', 'Итого']
 
 export const DailyTable = () => {
+
     const data = useSelector(getTable)
     const dispatch = useDispatch()
 

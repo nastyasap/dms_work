@@ -20,7 +20,8 @@ function* updateRowInDailyTable({payload}: ReturnType<typeof dailyTableSlice.act
 
 
 export function* dailyTableSaga() {
-    yield all([takeLatest(dailyTableSlice.actions.loadTableRequest.type, fetchDailyTable),
+    yield all([
+        takeLatest(dailyTableSlice.actions.loadTableRequest.type, fetchDailyTable),
         takeLatest(dailyTableSlice.actions.addRow.type, addRowToDailyTable),
         takeLatest(dailyTableSlice.actions.updateRow.type, updateRowInDailyTable),
     ])
