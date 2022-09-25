@@ -24,9 +24,9 @@ export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData}) => {
     }
 
 
-    const createCell = (cellName: string, value: any, align?: "center" | "inherit" | "left" | "right" | "justify") => {
+    const createCell = (cellName: string, value: any, disabled?: boolean, align?: "center" | "inherit" | "left" | "right" | "justify") => {
         return <StyledTableCell align={align || 'center'} onKeyDown={onKeyPressHandler}>
-            <EditableSpan value={value} onChange={onChangeData(cellName)}/>
+            <EditableSpan value={value} onChange={onChangeData(cellName)} disabled={disabled}/>
         </StyledTableCell>
     }
 
@@ -40,6 +40,6 @@ export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData}) => {
         {createCell('fuel', rowData.fuel)}
         {createCell('spendings', rowData.spendings)}
         {createCell('avans', rowData.avans)}
-        {createCell('total', total)}
+        {createCell('total', total, true)}
     </StyledTableRow>
 }
