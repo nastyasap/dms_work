@@ -10,7 +10,6 @@ import {NavLink} from "react-router-dom";
 
 const pages = [
     <NavLink to="/">Ведомость по дням</NavLink>,
-    <NavLink to="/">Отчет директору</NavLink>,
     <NavLink to="/">Статистика по расходам</NavLink>,
     <NavLink to="/">Учет топлива</NavLink>];
 
@@ -37,7 +36,7 @@ export const AppNavBar = () => {
                         DMS
                     </Typography>
 
-                    <Box sx={{flexGrow: 1, display: {xs: 'inherit', md: 'flex'}}}>
+                    <Box sx={{flexGrow: 1, display: 'flex', justifyContent: 'space-around'}}>
                         {pages.map((page, key) => (
                             <Button
                                 key={key}
