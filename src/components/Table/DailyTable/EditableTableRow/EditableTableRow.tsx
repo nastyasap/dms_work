@@ -7,39 +7,52 @@ import {StyledTableCell, StyledTableRow} from '../StyledTable';
 interface Props {
     rowData: DailyTableRow
     onChangeData: (cellName: string) => (value: string) => void
+    rowIndex: number
 }
 
-export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData}) => {
-    // @ts-ignore
-    const total: number =   rowData.cash + rowData.bort - rowData.gas - rowData.fuel - rowData.washing - rowData.avans - rowData.spendings
+export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData, rowIndex}) => {
+    const total: number = (rowData.cash || 0) + (rowData.bort || 0) - (rowData.gas || 0) - (rowData.fuel || 0) - (rowData.washing || 0) - (rowData.avans || 0) - (rowData.spendings || 0)
 
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLTableCellElement>) => {
-        if (e.key === 'Enter') {
-
+    const onKeyPressHandler = (cellIndex: number) => (e: KeyboardEvent<HTMLTableCellElement>) => {
+        const focusSell = (arrowName: string, addRowIndex: number, addCellIndex: number) => {
+            if (e.ctrlKey && e.key === arrowName) {
+                const row = document.querySelector(`[data-rowIndex="${rowIndex + addRowIndex}"]`)
+                if (row) {
+                    const cell = row.querySelector(`[data-cellIndex="${cellIndex + addCellIndex}"] input`)
+                    if (cell) {
+                        (cell as HTMLInputElement).focus()
+                    }
+                }
+            }
         }
-        if (e.key === 'ArrowRight') {
-
-        }
-        console.log(e.key)
+        focusSell('ArrowRight', 0, 1)
+        focusSell('ArrowLeft', 0, -1)
+        focusSell('ArrowUp', -1, 0)
+        focusSell('ArrowDown', 1, 0)
     }
 
 
-    const createCell = (cellName: string, value: any, disabled?: boolean, align?: "center" | "inherit" | "left" | "right" | "justify") => {
-        return <StyledTableCell align={align || 'center'} onKeyDown={onKeyPressHandler}>
+    const createCell = (cellName: string, value: any, index: number, disabled?: boolean, align?: "center" | "inherit" | "left" | "right" | "justify") => {
+        return <StyledTableCell data-cellIndex={index} align={align || 'center'}
+                                onKeyDown={onKeyPressHandler(index)}>
             <EditableSpan value={value} onChange={onChangeData(cellName)} disabled={disabled}/>
         </StyledTableCell>
     }
 
-    return <StyledTableRow>
-        {createCell('autoNumber',rowData.autoNumber)}
-        {createCell('name', rowData.name)}
-        {createCell('cash', rowData.cash)}
-        {createCell('bort', rowData.bort)}
-        {createCell('washing', rowData.washing)}
-        {createCell('gas', rowData.gas)}
-        {createCell('fuel', rowData.fuel)}
-        {createCell('spendings', rowData.spendings)}
-        {createCell('avans', rowData.avans)}
-        {createCell('total', total, true)}
+    return <StyledTableRow data-rowIndex={rowIndex}>
+        {
+            [
+                {name: 'autoNumber', data: rowData.autoNumber},
+                {name: 'name', data: rowData.name},
+                {name: 'cash', data: rowData.cash},
+                {name: 'bort', data: rowData.bort},
+                {name: 'washing', data: rowData.washing},
+                {name: 'gas', data: rowData.gas},
+                {name: 'fuel', data: rowData.fuel},
+                {name: 'spendings', data: rowData.spendings},
+                {name: 'avans', data: rowData.avans},
+                {name: 'total', data: total, disabled: true},
+            ].map((item, index) => createCell(item.name, item.data, index, item.disabled || false))
+        }
     </StyledTableRow>
 }

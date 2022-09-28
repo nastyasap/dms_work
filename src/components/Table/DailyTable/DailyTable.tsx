@@ -16,7 +16,6 @@ import {EditableTableRow} from './EditableTableRow/EditableTableRow';
 const TABLE_CELLS = ['Номер авто', 'ФИО водителя', 'Наличные за смену', 'Борт', 'Мойка', 'Газ', 'Бензин', 'Другие расходы', 'Аванс', 'Итого']
 
 export const DailyTable = () => {
-
     const data = useSelector(getTable)
     const dispatch = useDispatch()
 
@@ -42,8 +41,8 @@ export const DailyTable = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((row) => {
-                        return <EditableTableRow key={row.rowId} rowData={row}
+                    {data.map((row, index) => {
+                        return <EditableTableRow rowIndex={index} key={row.rowId} rowData={row}
                                                  onChangeData={onUpdateDataHandler(row.rowId)}/>
                     })}
                 </TableBody>
