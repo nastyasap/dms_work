@@ -5,7 +5,7 @@ const instance = axios.create({
 })
 
 export const dailyTableApi = {
-    getDataTable(tableId: number) {
+    getDataTable(date: string, isMorning: number) {
         return Promise.resolve({data:[
             {
                 rowId: 12,
@@ -45,15 +45,15 @@ export const dailyTableApi = {
                 addedDate: '20/09/2022/10:59',
             },
         ]})
-        return instance.get<DailyTableRow[]>(`/getTable`, { params: {tableId}})
+        return instance.get<DailyTableRow[]>(`/getTable/${date}/${isMorning}`)
     },
 
     updateDataTable(tableId: number, rowId: number, data: Partial<DailyTableRow>) {
-        return instance.put<DailyTableRow>(`/getTable`, {data}, { params: {tableId, rowId}})
+        return instance.put<DailyTableRow>(`/getTable/${tableId}/${rowId}`, {data})
     },
 
     createDataTable(tableId: number, data: Partial<DailyTableRow>)  {
-        return instance.post<DailyTableRow>(`/getTable`, {data}, { params: {tableId}})
+        return instance.post<DailyTableRow>(`/getTable/${tableId}`, {data})
     },
 }
 

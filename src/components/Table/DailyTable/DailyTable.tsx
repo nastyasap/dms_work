@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {dailyTableSlice} from '../../../bll/reducers/dailyTable-reducer';
-import {getTable} from '../../../bll/selectors/dailyTable-selector';
+import {getDailyTableData} from '../../../bll/selectors/dailyTable-selector';
 import {StyledTableCell} from './StyledTable';
 import {EditableTableRow} from './EditableTableRow/EditableTableRow';
 
@@ -16,7 +16,7 @@ import {EditableTableRow} from './EditableTableRow/EditableTableRow';
 const TABLE_CELLS = ['Номер авто', 'ФИО водителя', 'Наличные за смену', 'Борт', 'Мойка', 'Газ', 'Бензин', 'Другие расходы', 'Аванс', 'Итого']
 
 export const DailyTable = () => {
-    const data = useSelector(getTable)
+    const data = useSelector(getDailyTableData)
     const dispatch = useDispatch()
 
     useEffect(() => {

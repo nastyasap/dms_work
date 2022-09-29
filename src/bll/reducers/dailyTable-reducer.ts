@@ -12,8 +12,10 @@ const initialState: InitialState = {
     id: null,
 }
 
+const NEW_ROW_ID = 100000000
+
 export const EMPTY_DATA: DailyTableRow = {
-    rowId: 100000000000,
+    rowId: NEW_ROW_ID,
     autoNumber: null,
     name: null,
     cash: null,
@@ -30,17 +32,17 @@ export const dailyTableSlice = createSlice({
     name: 'dailyTable',
     initialState: initialState,
     reducers: {
-        addRow(state, action: PayloadAction<Partial<DailyTableRow>>) {
-            const data = {...EMPTY_DATA, ...action.payload}
-            state.dailyTable.push(data)
-        },
         loadTableRequest(state, action: PayloadAction<number>) {
             state.isLoading = true
             state.id = action.payload
         },
-        loadTableSucess(state, action: PayloadAction<DailyTableRow[]>) {
+        loadTableSuccess(state, action: PayloadAction<DailyTableRow[]>) {
             state.isLoading = false
             state.dailyTable = [...action.payload, EMPTY_DATA]
+        },
+        addRow(state, action: PayloadAction<Partial<DailyTableRow>>) {
+            const data = {...EMPTY_DATA, ...action.payload}
+            state.dailyTable.push(data)
         },
         updateRow(state, action: PayloadAction<{ data: Partial<DailyTableRow>, rowId: number }>) {
             const index = state.dailyTable.findIndex(obj => obj.rowId === action.payload.rowId)

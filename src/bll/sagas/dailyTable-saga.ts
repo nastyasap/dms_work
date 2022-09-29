@@ -5,7 +5,7 @@ import {getTableId} from '../selectors/dailyTable-selector';
 
 function* fetchDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.loadTableRequest>) {
     const {data} = yield call(dailyTableApi.getDataTable, payload);
-    yield put(dailyTableSlice.actions.loadTableSucess(data))
+    yield put(dailyTableSlice.actions.loadTableSuccess(data))
 }
 
 function* addRowToDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.addRow>) {
