@@ -1,34 +1,41 @@
-import {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, CSSProperties, useState} from 'react';
 import {TextField} from '@mui/material';
 
-type EditableSpanType = {
+interface Props {
     value: string
     onChange: (value: string) => void
     disabled?: boolean
+    placeholder: string
 }
 
-export const EditableSpan = ({value, onChange, disabled}: EditableSpanType) => {
+export const EditableSpan: React.FC<Props> = ({value, onChange, disabled, placeholder}) => {
     const [title, setTitle] = useState(value)
-    // const [editMode, setEditMode] = useState(false)
 
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-    // const activateEditMode = () => {
-    //     setEditMode(true)
-    //     setTitle(value)
-    // }
 
     const activateViewMode = () => {
-        // setEditMode(false)
         onChange(title)
     }
 
+    const fontColor = {
+        webkitTextFillColor: "rgba(0, 0, 0, 0.8)",
+        fontWeight: 'bold'
+    } as CSSProperties
 
     return (
-        // editMode
-        <TextField disabled={disabled} value={title} onChange={changeTitle} placeholder={'bla'} onBlur={activateViewMode} autoFocus variant="standard"/>
-        // : <span onClick={activateEditMode}>{value}</span>
-)}
+        <TextField
+            disabled={disabled}
+            inputProps={disabled ? {style: fontColor} : undefined}
+            value={title}
+            onChange={changeTitle}
+            placeholder={placeholder}
+            onBlur={activateViewMode}
+            autoFocus
+            variant={"standard"}
+        />
+    )
+}

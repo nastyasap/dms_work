@@ -32,9 +32,8 @@ export const dailyTableSlice = createSlice({
     name: 'dailyTable',
     initialState: initialState,
     reducers: {
-        loadTableRequest(state, action: PayloadAction<number>) {
+        loadTableRequest(state, action: PayloadAction<{date:string, isMorning: number}>) {
             state.isLoading = true
-            state.id = action.payload
         },
         loadTableSuccess(state, action: PayloadAction<DailyTableRow[]>) {
             state.isLoading = false

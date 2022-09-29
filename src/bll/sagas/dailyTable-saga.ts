@@ -4,7 +4,7 @@ import {dailyTableSlice} from '../reducers/dailyTable-reducer'
 import {getTableId} from '../selectors/dailyTable-selector';
 
 function* fetchDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.loadTableRequest>) {
-    const {data} = yield call(dailyTableApi.getDataTable, payload);
+    const {data} = yield call(dailyTableApi.getDataTable, payload.date, payload.isMorning);
     yield put(dailyTableSlice.actions.loadTableSuccess(data))
 }
 

@@ -7,21 +7,26 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useDispatch, useSelector} from 'react-redux';
-import {dailyTableSlice} from '../../../bll/reducers/dailyTable-reducer';
-import {getDailyTableData} from '../../../bll/selectors/dailyTable-selector';
 import {StyledTableCell} from './StyledTable';
 import {EditableTableRow} from './EditableTableRow/EditableTableRow';
+import {getDailyTableData} from '../../../bll/selectors/dailyTable-selector';
+import {dailyTableSlice} from '../../../bll/reducers/dailyTable-reducer';
 
 
 const TABLE_CELLS = ['Номер авто', 'ФИО водителя', 'Наличные за смену', 'Борт', 'Мойка', 'Газ', 'Бензин', 'Другие расходы', 'Аванс', 'Итого']
+interface Props {
+    date: string
+    isMorning: number
+}
 
-export const DailyTable = () => {
+export const DailyTable: React.FC<Props> = ({date, isMorning}) => {
     const data = useSelector(getDailyTableData)
     const dispatch = useDispatch()
 
+
     useEffect(() => {
-        dispatch(dailyTableSlice.actions.loadTableRequest(787))
-    }, [dispatch])
+        dispatch(dailyTableSlice.actions.loadTableRequest({date, isMorning}))
+    }, [dispatch, date, isMorning])
 
     const onUpdateDataHandler = (rowId: number | null) => (cellName: string) => (value: string) => {
         rowId
