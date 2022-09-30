@@ -13,12 +13,11 @@ export const CalendarWithData = () => {
 
     return (
         <div className={s.container}>
-            <Calendar  onChange={onChange} value={value} calendarType={'ISO 8601'}/>
-                <div>
-                    <Button variant={'contained'} onClick={() => navigate(`/dailyTable/${date}/1`)}>Утро</Button>
-                    <Button variant={'contained'} onClick={() => navigate(`/dailyTable/${date}/0`)}>Вечер</Button>
-                </div>
-
+            <Calendar className={s.reactCalendar} onChange={onChange} value={value} calendarType={'ISO 8601'}/>
+            <div className={s.buttonsWrapper}>
+                <Button sx={{color: 'white'}} variant={'contained'} onClick={() => navigate(`/dailyTable/${date}/1`)}>Утро</Button>
+                <Button sx={{color: 'white'}} variant={'contained'} onClick={() => navigate(`/dailyTable/${date}/0`)}>Вечер</Button>
+            </div>
         </div>
     );
 }

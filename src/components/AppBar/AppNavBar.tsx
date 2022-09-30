@@ -6,12 +6,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import {NavLink} from "react-router-dom";
-// import s from "./NavBar.module.css"
+import s from "./NavBar.module.scss"
 
 const pages = [
-    <NavLink to="/">Ведомость по дням</NavLink>,
-    <NavLink to="/">Статистика по расходам</NavLink>,
-    <NavLink to="/">Учет топлива</NavLink>];
+    <NavLink to="/" className={s.link}>Ведомость по дням</NavLink>,
+    <NavLink to="/" className={s.link}>Статистика по расходам</NavLink>,
+    <NavLink to="/" className={s.link}>Учет топлива</NavLink>];
 
 export const AppNavBar = () => {
     return (
@@ -29,7 +29,7 @@ export const AppNavBar = () => {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: 'white',
                             textDecoration: 'none',
                         }}
                     >
