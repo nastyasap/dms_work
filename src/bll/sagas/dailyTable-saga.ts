@@ -4,18 +4,18 @@ import {dailyTableSlice} from '../reducers/dailyTable-reducer'
 import {getTableId} from '../selectors/dailyTable-selector';
 
 function* fetchDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.loadTableRequest>) {
-    const {data} = yield call(dailyTableApi.getDataTable, payload.date, payload.isMorning);
+    const {data}= yield call(dailyTableApi.getDataTable, payload.date, payload.isMorning);
     yield put(dailyTableSlice.actions.loadTableSuccess(data))
 }
 
 function* addRowToDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.addRow>) {
-    const id: number = yield select(getTableId)
-    yield call(dailyTableApi.createDataTable, id, payload)
+    const id: string = yield select(getTableId)
+    const {data} = yield call(dailyTableApi.createDataTable, id, payload)
+    yield put(dailyTableSlice.actions.addRowSuccess(data))
 }
 
 function* updateRowInDailyTable({payload}: ReturnType<typeof dailyTableSlice.actions.updateRow>) {
-    const id: number = yield select(getTableId)
-    yield call(dailyTableApi.updateDataTable, id, payload.rowId, payload.data)
+    yield call(dailyTableApi.updateDataTable, payload.rowId, payload.data)
 }
 
 

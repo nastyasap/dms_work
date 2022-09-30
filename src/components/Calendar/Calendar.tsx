@@ -4,11 +4,12 @@ import s from './Calendar.module.scss'
 import 'react-calendar/dist/Calendar.css'
 import {useNavigate} from 'react-router-dom';
 import Button from '@mui/material/Button';
+import moment from 'moment';
 
 export const CalendarWithData = () => {
     const navigate = useNavigate()
     const [value, onChange] = useState(new Date());
-    const date = value.getFullYear() + '-' + ((+value.getMonth() + 1) < 10 ? '0' + (+value.getMonth() + 1) : (+value.getMonth() + 1)) + '-' + value.getDate()
+    const date = moment(value).format('YYYY-MM-DD')
 
     return (
         <div className={s.container}>

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData, rowIndex}) => {
-    const total: number = (rowData.cash || 0) + (rowData.bort || 0) - (rowData.gas || 0) - (rowData.fuel || 0) - (rowData.washing || 0) - (rowData.avans || 0) - (rowData.spendings || 0)
+    const total: number = Number(rowData.cash) + Number(rowData.bort) - Number(rowData.gas) - Number(rowData.fuel) - Number(rowData.washing) - Number(rowData.avans) - Number(rowData.spendings)
 
     const onKeyPressHandler = (cellIndex: number) => (e: KeyboardEvent<HTMLTableCellElement>) => {
         const focusSell = (arrowName: string, addRowIndex: number, addCellIndex: number) => {
@@ -35,7 +35,7 @@ export const EditableTableRow: React.FC<Props> = ({rowData, onChangeData, rowInd
     const createCell = (cellName: string, value: any, index: number, disabled?: boolean, align?: "center" | "inherit" | "left" | "right" | "justify") => {
         return <StyledTableCell data-cellIndex={index} align={align || 'center'}
                                 onKeyDown={onKeyPressHandler(index)}>
-            <EditableSpan value={value} onChange={onChangeData(cellName)} disabled={disabled}/>
+            <EditableSpan placeholder={cellName} value={value} onChange={onChangeData(cellName)} disabled={disabled}/>
         </StyledTableCell>
     }
 

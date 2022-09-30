@@ -1,5 +1,6 @@
-import React, {ChangeEvent, CSSProperties, useState} from 'react';
+import React, {ChangeEvent, CSSProperties, useState, KeyboardEvent} from 'react';
 import {TextField} from '@mui/material';
+import {debounce} from 'lodash';
 
 interface Props {
     value: string
@@ -9,16 +10,28 @@ interface Props {
 }
 
 export const EditableSpan: React.FC<Props> = ({value, onChange, disabled, placeholder}) => {
-    const [title, setTitle] = useState(value)
+    const [inputValue, setInputValue] = useState(value)
 
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setTitle(e.currentTarget.value)
+        setInputValue(e.currentTarget.value)
+        // debounce(() => {
+        //     onChange(inputValue)
+        // }, 300)
     }
 
 
     const activateViewMode = () => {
-        onChange(title)
+        inputValue &&
+        // debounce(() => {
+            onChange(inputValue)
+        // }, 300)
+    }
+
+    const onEnterPress = (e:KeyboardEvent<HTMLDivElement>) => {
+        if(e.key === 'Enter') {
+            activateViewMode()
+        }
     }
 
     const fontColor = {
@@ -30,11 +43,11 @@ export const EditableSpan: React.FC<Props> = ({value, onChange, disabled, placeh
         <TextField
             disabled={disabled}
             inputProps={disabled ? {style: fontColor} : undefined}
-            value={title}
+            value={inputValue}
             onChange={changeTitle}
             placeholder={placeholder}
             onBlur={activateViewMode}
-            autoFocus
+            onKeyPress={onEnterPress}
             variant={"standard"}
         />
     )
