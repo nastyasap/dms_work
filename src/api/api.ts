@@ -23,14 +23,14 @@ export const dailyTableApi = {
 
 export type DailyTableRow = {
     _id: string
-    autoNumber?: number | null
+    autoNumber: string | null
     name: string | null
-    cash: number | null
-    bort?: number | null
-    washing?: number | null
-    gas?: number | null
-    fuel?: number | null
-    spendings?: number | null
-    avans?: number | null
+    cash: string | null
+    bort: string | null
+    washing: string | null
+    gas: string | null
+    fuel: string | null
+    spendings: string | null
+    avans: string | null
     addedDate: number | null
 }

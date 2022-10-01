@@ -1,41 +1,42 @@
-import React, {ChangeEvent, CSSProperties, useState, KeyboardEvent} from 'react';
+import React, {ChangeEvent, CSSProperties, KeyboardEvent, useEffect, useState} from 'react';
 import {TextField} from '@mui/material';
-import {debounce} from 'lodash';
+import {NEW_ROW_ID} from '../../bll/reducers/dailyTable-reducer';
 
 interface Props {
-    value: string
-    onChange: (value: string) => void
+    value: string | null
+    onChange: (value: string | null) => void
     disabled?: boolean
     placeholder: string
+    rowId: string
 }
 
-export const EditableSpan: React.FC<Props> = ({value, onChange, disabled, placeholder}) => {
-    const [inputValue, setInputValue] = useState(value)
+export const EditableSpan: React.FC<Props> = ({rowId, value, onChange, disabled, placeholder}) => {
+    const [tempValue, setTempValue] = useState(value)
 
+    useEffect(() => {
+        setTempValue(value)
+    }, [value])
 
-    const changeTitle = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setInputValue(e.currentTarget.value)
-        // debounce(() => {
-        //     onChange(inputValue)
-        // }, 300)
+    const changeInputValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setTempValue(e.currentTarget.value)
     }
 
 
     const activateViewMode = () => {
-        inputValue &&
-        // debounce(() => {
-            onChange(inputValue)
-        // }, 300)
+        if (rowId === NEW_ROW_ID) {
+            tempValue &&
+            onChange(tempValue)
+        } else onChange(tempValue)
     }
 
-    const onEnterPress = (e:KeyboardEvent<HTMLDivElement>) => {
-        if(e.key === 'Enter') {
+    const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
             activateViewMode()
         }
     }
 
     const fontColor = {
-        webkitTextFillColor: "rgba(0, 0, 0, 0.8)",
+        WebkitTextFillColor: "rgba(0, 0, 0, 0.8)",
         fontWeight: 'bold'
     } as CSSProperties
 
@@ -43,8 +44,8 @@ export const EditableSpan: React.FC<Props> = ({value, onChange, disabled, placeh
         <TextField
             disabled={disabled}
             inputProps={disabled ? {style: fontColor} : undefined}
-            value={inputValue}
-            onChange={changeTitle}
+            value={tempValue}
+            onChange={changeInputValue}
             placeholder={placeholder}
             onBlur={activateViewMode}
             onKeyPress={onEnterPress}
