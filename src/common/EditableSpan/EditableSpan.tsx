@@ -1,32 +1,55 @@
-import {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, CSSProperties, KeyboardEvent, useEffect, useState} from 'react';
 import {TextField} from '@mui/material';
+import {NEW_ROW_ID} from '../../bll/reducers/dailyTable-reducer';
 
-type EditableSpanType = {
-    value: any
-    onChange: (value: string) => void
+interface Props {
+    value: string | null
+    onChange: (value: string | null) => void
+    disabled?: boolean
+    placeholder: string
+    rowId: string
 }
 
-export const EditableSpan = ({value, onChange}: EditableSpanType) => {
-    const [title, setTitle] = useState(value)
-    const [editMode, setEditMode] = useState(false)
+export const EditableSpan: React.FC<Props> = ({rowId, value, onChange, disabled, placeholder}) => {
+    const [tempValue, setTempValue] = useState(value)
 
+    useEffect(() => {
+        setTempValue(value)
+    }, [value])
 
-    const changeTitle = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setTitle(e.currentTarget.value)
+    const changeInputValue = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setTempValue(e.currentTarget.value)
     }
 
-    const activateEditMode = () => {
-        setEditMode(true)
-        setTitle(value)
-    }
 
     const activateViewMode = () => {
-        setEditMode(false)
-        onChange(title)
+        if (rowId === NEW_ROW_ID) {
+            tempValue &&
+            onChange(tempValue)
+        } else onChange(tempValue)
     }
 
+    const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            activateViewMode()
+        }
+    }
 
-    return !value || editMode
-        ? <TextField value={title} onChange={changeTitle} placeholder={'bla'} onBlur={activateViewMode} autoFocus variant="standard"/>
-        : <span onDoubleClick={activateEditMode}>{value}</span>
+    const fontColor = {
+        WebkitTextFillColor: "rgba(0, 0, 0, 0.8)",
+        fontWeight: 'bold'
+    } as CSSProperties
+
+    return (
+        <TextField
+            disabled={disabled}
+            inputProps={disabled ? {style: fontColor} : undefined}
+            value={tempValue}
+            onChange={changeInputValue}
+            placeholder={placeholder}
+            onBlur={activateViewMode}
+            onKeyPress={onEnterPress}
+            variant={"standard"}
+        />
+    )
 }

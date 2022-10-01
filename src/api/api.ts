@@ -1,76 +1,36 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: ''
+    baseURL: 'https://yandex-taxi-proxy.herokuapp.com/'
 })
 
 export const dailyTableApi = {
-    getDataTable(tableId: number) {
-        return Promise.resolve([
-            {
-                rowId: 123,
-                autoNumber: 1234,
-                name: 'Ivanov',
-                cash: 65,
-                bort: 10,
-                washing: 3,
-                gas: 17,
-                fuel: 0,
-                spendings: 0,
-                avans: 0,
-                total: 123,
-                addedDate: '20/09/2022/10:59',
-            },{
-                rowId: 123,
-                autoNumber: 1234,
-                name: 'Ivanov',
-                cash: 65,
-                bort: 10,
-                washing: 3,
-                gas: 17,
-                fuel: 0,
-                spendings: 0,
-                avans: 0,
-                total: 123,
-                addedDate: '20/09/2022/10:59',
-            },{
-                rowId: 123,
-                autoNumber: 1234,
-                name: 'Ivanov',
-                cash: 65,
-                bort: 0,
-                washing: 0,
-                gas: 17,
-                fuel: 0,
-                spendings: 0,
-                avans: 0,
-                total: 123,
-                addedDate: '20/09/2022/10:59',
-            },
-        ])
-        return instance.get(`/getTable`, { params: {tableId}})
+    getDataTable(date: string, isMorning: number) {
+        return instance.get<{
+            table: { _id: string, },
+            rows:DailyTableRow[]
+        }>(`/table/${date}/${isMorning}`)
     },
 
-    updateDataTable(tableId: number, rowId: number, data: Partial<DailyTableType>) {
-        return instance.put(`/getTable`, {data}, { params: {tableId, rowId}})
+    updateDataTable(rowId: string, data: Partial<DailyTableRow>) {
+        return instance.put<DailyTableRow>(`/table/${rowId}`, data)
     },
 
-    createDataTable(tableId: number, data: DailyTableType) {
-        return instance.post(`/getTable`, {data}, { params: {tableId}})
+    createDataTable(tableId: string, data: Partial<DailyTableRow>)  {
+        return instance.post<DailyTableRow>(`/table/${tableId}`, data)
     },
 }
 
-export type DailyTableType = {
-    rowId: number
-    autoNumber?: number
-    name: string
-    cash: number
-    bort?: number
-    washing?: number
-    gas?: number
-    fuel?: number
-    spendings?: number
-    avans?: number
-    total: number
-    addedDate: any
+export type DailyTableRow = {
+    _id: string
+    autoNumber: string | null
+    name: string | null
+    cash: string | null
+    bort: string | null
+    washing: string | null
+    gas: string | null
+    fuel: string | null
+    spendings: string | null
+    avans: string | null
+    addedDate: number | null
 }
