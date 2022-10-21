@@ -18,27 +18,30 @@ export const EditableTableRow: React.FC<Props> = ({ rowData, onChangeData, rowIn
     Number(rowData.washing) -
     Number(rowData.avans) -
     Number(rowData.spendings)
-  ).toString();
+  )
+    .toFixed(2)
+    .toString();
 
   return (
     <StyledTableRow data-rowindex={rowIndex}>
       {[
-        { name: 'autoNumber', data: rowData.autoNumber },
-        { name: 'name', data: rowData.name },
-        { name: 'cash', data: rowData.cash },
-        { name: 'bort', data: rowData.bort },
-        { name: 'washing', data: rowData.washing },
-        { name: 'gas', data: rowData.gas },
-        { name: 'fuel', data: rowData.fuel },
-        { name: 'spendings', data: rowData.spendings },
-        { name: 'avans', data: rowData.avans },
-        { name: 'total', data: total, disabled: true },
+        { name: 'autoNumber', placeHolder: '№ авто', data: rowData.autoNumber },
+        { name: 'name', placeHolder: 'ФИО', data: rowData.name },
+        { name: 'cash', placeHolder: 'наличка', data: rowData.cash },
+        { name: 'bort', placeHolder: 'борт', data: rowData.bort },
+        { name: 'washing', placeHolder: 'мойка', data: rowData.washing },
+        { name: 'gas', placeHolder: 'газ', data: rowData.gas },
+        { name: 'fuel', placeHolder: 'бензин', data: rowData.fuel },
+        { name: 'spendings', placeHolder: 'расходы', data: rowData.spendings },
+        { name: 'avans', placeHolder: 'аванс', data: rowData.avans },
+        { name: 'total', placeHolder: 'всего', data: total, disabled: true },
       ].map((item, index) => {
         return (
           <TableCell
             key={rowData._id + item.name}
             onChangeData={onChangeData}
             cellName={item.name}
+            placeHolder={item.placeHolder}
             value={item.data}
             cellIndex={index}
             rowIndex={rowIndex}

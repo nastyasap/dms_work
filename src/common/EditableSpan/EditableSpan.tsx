@@ -24,12 +24,16 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
   const activateViewMode = () => {
     if (rowId === NEW_ROW_ID) {
       tempValue && onChange(tempValue);
-    } else onChange(tempValue);
+      setTempValue('');
+    } else {
+      onChange(tempValue);
+    }
   };
 
   const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       activateViewMode();
+      setTempValue('');
     }
   };
 

@@ -10,10 +10,20 @@ interface Props {
   rowIndex: number;
   disabled?: boolean;
   value: string | null;
+  placeHolder: string;
   onChangeData: (cellName: string) => (value: string | null) => void;
 }
 
-export const TableCell: React.FC<Props> = ({ cellName, rowId, value, onChangeData, cellIndex, rowIndex, disabled }) => {
+export const TableCell: React.FC<Props> = ({
+  placeHolder,
+  cellName,
+  rowId,
+  value,
+  onChangeData,
+  cellIndex,
+  rowIndex,
+  disabled,
+}) => {
   const onKeyPressHandler = (cellIndex: number) => (e: KeyboardEvent<HTMLTableCellElement>) => {
     const focusSell = (arrowName: string, addRowIndex: number, addCellIndex: number) => {
       if (e.ctrlKey && e.key === arrowName) {
@@ -36,7 +46,7 @@ export const TableCell: React.FC<Props> = ({ cellName, rowId, value, onChangeDat
     <StyledTableCell data-cellindex={cellIndex} align={'center'} onKeyDown={onKeyPressHandler(cellIndex)}>
       <EditableSpan
         rowId={rowId}
-        placeholder={cellName}
+        placeholder={placeHolder}
         value={value}
         onChange={onChangeData(cellName)}
         disabled={disabled}

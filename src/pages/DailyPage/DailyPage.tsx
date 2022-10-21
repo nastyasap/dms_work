@@ -1,36 +1,25 @@
-import { DailyTable } from './DailyTable/DailyTable';
-import { useNavigate, useParams } from 'react-router-dom';
-import s from './TablePage.module.scss';
 import cn from 'classnames';
+import s from './DailyPage.module.scss';
+import { DailyTable } from '../../components/Table/DailyTable/DailyTable';
 import { Button } from '@mui/material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import moment from 'moment';
+import React from 'react';
 
-export const TableContainer = () => {
-  const { date, isMorning } = useParams();
-  const navigate = useNavigate();
+interface Props {
+  isMorning: string | undefined;
+  date: string | undefined;
+  onArrowBackClick: () => void;
+  onArrowForwardClick: () => void;
+}
 
+export const DailyPage: React.FC<Props> = ({ isMorning, date, onArrowBackClick, onArrowForwardClick }) => {
   const shownDate = new Date(date || '').toLocaleString('ru', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
     weekday: 'long',
   });
-
-  const onArrowBackClick = () => {
-    const prevDay = moment(date).subtract(1, 'd').format('YYYY-MM-DD');
-    if (isMorning === '0') {
-      navigate(`/dailyTable/${date}/1`);
-    } else navigate(`/dailyTable/${prevDay}/0`);
-  };
-
-  const onArrowForwardClick = () => {
-    const nextDay = moment(date).add(1, 'd').format('YYYY-MM-DD');
-    if (isMorning === '0') {
-      navigate(`/dailyTable/${nextDay}/1`);
-    } else navigate(`/dailyTable/${date}/0`);
-  };
 
   return (
     <div className={s.container}>
