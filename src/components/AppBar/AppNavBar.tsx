@@ -15,7 +15,7 @@ const pages = [
   <NavLink to="/" className={s.link}>
     Статистика по расходам
   </NavLink>,
-  <NavLink to="/" className={s.link}>
+  <NavLink to="/fuel" className={s.link}>
     Учет топлива
   </NavLink>,
 ];
