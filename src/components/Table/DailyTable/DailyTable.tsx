@@ -9,8 +9,9 @@ import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledTableCell } from './StyledTable';
 import { EditableTableRow } from './EditableTableRow/EditableTableRow';
-import { getDailyTableData } from '../../../bll/selectors/dailyTable-selector';
+import { getDailyTableData, getIsLoading } from '../../../bll/selectors/dailyTable-selector';
 import { dailyTableSlice, NEW_ROW_ID } from '../../../bll/reducers/dailyTable-reducer';
+import { LinearProgress, TableCell } from '@mui/material';
 
 const TABLE_CELLS = [
   'Номер авто',
@@ -32,6 +33,7 @@ interface Props {
 
 export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
   const data = useSelector(getDailyTableData);
+  const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,6 +57,13 @@ export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
               </StyledTableCell>
             ))}
           </TableRow>
+          {isLoading && (
+            <TableRow>
+              <TableCell style={{ padding: '0', border: 'none' }} colSpan={10}>
+                <LinearProgress />
+              </TableCell>
+            </TableRow>
+          )}
         </TableHead>
         <TableBody>
           {data.map((row, index) => {
