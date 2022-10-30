@@ -23,10 +23,10 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
 
   const activateViewMode = () => {
     if (rowId === NEW_ROW_ID) {
-      tempValue && onChange(tempValue);
+      tempValue && onChange(eval(tempValue));
       setTempValue('');
     } else {
-      onChange(tempValue);
+      onChange(tempValue ? eval(tempValue) : tempValue);
     }
   };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Tab, Tabs, Typography } from '@mui/material';
+import { AutoFuelTable } from '../Table/FuelTable/AutoFuelTable/AutoFuelTable';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,7 +55,7 @@ export const VerticalTabs = () => {
       </Tabs>
       {/*<HorizontalTabs />*/}
       <TabPanel value={value} index={0}>
-        Item One
+        <AutoFuelTable />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

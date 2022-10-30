@@ -1,7 +1,7 @@
-import { StyledTableCell } from '../../StyledTable';
 import { EditableSpan } from '../../../../../common/EditableSpan/EditableSpan';
 import * as React from 'react';
 import { KeyboardEvent } from 'react';
+import { StyledTableCell } from '../../../StyledTable';
 
 interface Props {
   cellName: string;

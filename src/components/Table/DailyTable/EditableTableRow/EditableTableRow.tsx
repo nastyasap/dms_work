@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DailyTableRow } from '../../../../api/api';
-import { StyledTableRow } from '../StyledTable';
+import { StyledTableRow } from '../../StyledTable';
 import { TableCell } from './TableCell/TableCell';
 
 interface Props {

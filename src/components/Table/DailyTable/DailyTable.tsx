@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledTableCell } from './StyledTable';
+import { StyledTableCell } from '../StyledTable';
 import { EditableTableRow } from './EditableTableRow/EditableTableRow';
 import { getDailyTableData, getIsLoading } from '../../../bll/selectors/dailyTable-selector';
 import { dailyTableSlice, NEW_ROW_ID } from '../../../bll/reducers/dailyTable-reducer';
