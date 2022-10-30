@@ -9,15 +9,19 @@ export const dailyTableApi = {
     return instance.get<{
       table: { _id: string };
       rows: DailyTableRow[];
-    }>(`/table/${date}/${isMorning}`);
+    }>(`table/${date}/${isMorning}`);
   },
 
   updateDataTable(rowId: string, data: Partial<DailyTableRow>) {
-    return instance.put<DailyTableRow>(`/table/${rowId}`, data);
+    return instance.put<DailyTableRow>(`table/${rowId}`, data);
   },
 
   createDataTable(tableId: string, data: Partial<DailyTableRow>) {
-    return instance.post<DailyTableRow>(`/table/${tableId}`, data);
+    return instance.post<DailyTableRow>(`table/${tableId}`, data);
+  },
+
+  removeRow(rowId: string) {
+    return instance.delete(`table/:${rowId}`);
   },
 };
 

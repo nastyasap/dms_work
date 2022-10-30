@@ -18,10 +18,15 @@ function* updateRowInDailyTable({ payload }: ReturnType<typeof dailyTableSlice.a
   yield call(dailyTableApi.updateDataTable, payload.rowId, payload.data);
 }
 
+function* deleteRowInDailyTable({ payload }: ReturnType<typeof dailyTableSlice.actions.deleteRow>) {
+  yield call(dailyTableApi.removeRow, payload.rowId);
+}
+
 export function* dailyTableSaga() {
   yield all([
     takeLatest(dailyTableSlice.actions.loadTableRequest.type, fetchDailyTable),
     takeLatest(dailyTableSlice.actions.addRow.type, addRowToDailyTable),
     takeLatest(dailyTableSlice.actions.updateRow.type, updateRowInDailyTable),
+    takeLatest(dailyTableSlice.actions.deleteRow.type, deleteRowInDailyTable),
   ]);
 }

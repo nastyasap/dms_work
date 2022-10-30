@@ -21,12 +21,27 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
     setTempValue(e.currentTarget.value);
   };
 
+  const plusInTempValue = (str: string) => {
+    let newStr = str;
+    if (str.indexOf('+') >= 0) {
+      let arr = str.split('+');
+      arr.reduce((acc: number, num: string) => {
+        if (num !== '+') {
+          acc += Number(num);
+          newStr = String(acc);
+        }
+        return acc;
+      }, 0);
+    }
+    return newStr;
+  };
+
   const activateViewMode = () => {
     if (rowId === NEW_ROW_ID) {
-      tempValue && onChange(eval(tempValue));
+      tempValue && onChange(plusInTempValue(tempValue));
       setTempValue('');
     } else {
-      onChange(tempValue ? eval(tempValue) : tempValue);
+      onChange(tempValue ? plusInTempValue(tempValue) : tempValue);
     }
   };
 

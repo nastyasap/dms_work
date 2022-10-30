@@ -36,6 +36,9 @@ export const dailyTableSlice = createSlice({
     loadTableRequest(state, action: PayloadAction<{ date: string; isMorning: number }>) {
       state.isLoading = true;
     },
+    resetTable(state, action: PayloadAction) {
+      state.dailyTable = [];
+    },
     loadTableSuccess(
       state,
       action: PayloadAction<{
@@ -47,10 +50,7 @@ export const dailyTableSlice = createSlice({
       state.dailyTable = [...action.payload.rows, EMPTY_DATA];
       state.id = action.payload.table._id;
     },
-    addRow(state, action: PayloadAction<Partial<DailyTableRow>>) {
-      // const data = {...EMPTY_DATA, ...action.payload}
-      // state.dailyTable.push(data)
-    },
+    addRow(state, action: PayloadAction<Partial<DailyTableRow>>) {},
     addRowSuccess(state, action: PayloadAction<DailyTableRow>) {
       state.dailyTable = [
         ...state.dailyTable.filter((item) => item._id !== NEW_ROW_ID),
@@ -68,5 +68,12 @@ export const dailyTableSlice = createSlice({
         ...action.payload.data,
       };
     },
+    deleteRow(state, action: PayloadAction<{ rowId: string }>) {
+      const index = state.dailyTable.findIndex((obj) => obj._id === action.payload.rowId);
+      delete state.dailyTable[index];
+    },
+    // deleteRowSuccess(state, action: PayloadAction<{ rowId: string }>) {
+    //
+    // },
   },
 });
