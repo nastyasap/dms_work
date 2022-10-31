@@ -19,7 +19,7 @@ function* updateRowInDailyTable({ payload }: ReturnType<typeof dailyTableSlice.a
 }
 
 function* deleteRowInDailyTable({ payload }: ReturnType<typeof dailyTableSlice.actions.deleteRow>) {
-  yield call(dailyTableApi.removeRow, payload.rowId);
+  yield call(dailyTableApi.removeRow, payload);
 }
 
 export function* dailyTableSaga() {

@@ -6,7 +6,7 @@ interface Props {
   value: string | null;
   onChange: (value: string | null) => void;
   disabled?: boolean;
-  placeholder: string;
+  placeholder?: string;
   rowId: string;
 }
 

@@ -68,8 +68,8 @@ export const dailyTableSlice = createSlice({
         ...action.payload.data,
       };
     },
-    deleteRow(state, action: PayloadAction<{ rowId: string }>) {
-      const index = state.dailyTable.findIndex((obj) => obj._id === action.payload.rowId);
+    deleteRow(state, action: PayloadAction<string>) {
+      const index = state.dailyTable.findIndex((obj) => obj._id === action.payload);
       state.dailyTable.splice(index, 1);
     },
   },
