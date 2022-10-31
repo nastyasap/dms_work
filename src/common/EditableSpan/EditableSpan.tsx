@@ -28,8 +28,8 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
       let sum = 0;
       arr.forEach((item) => {
         sum += Number(item);
-        newStr = String(sum);
       });
+      newStr = String(sum);
     }
     return newStr;
   };
