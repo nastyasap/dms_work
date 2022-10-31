@@ -35,6 +35,15 @@ export const TableCell: React.FC<Props> = ({
           }
         }
       }
+      if (e.key === 'Enter') {
+        const row = document.querySelector(`[data-rowindex="${rowIndex}"]`);
+        if (row) {
+          const cell = row.querySelector(`[data-cellindex="${cellIndex + 1}"] input`);
+          if (cell) {
+            (cell as HTMLInputElement).focus();
+          }
+        }
+      }
     };
     focusSell('ArrowRight', 0, 1);
     focusSell('ArrowLeft', 0, -1);

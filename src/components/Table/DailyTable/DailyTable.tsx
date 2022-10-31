@@ -24,6 +24,7 @@ const TABLE_CELLS = [
   'Другие расходы',
   'Аванс',
   'Итого',
+  'Удалить строку',
 ];
 
 interface Props {
@@ -38,6 +39,9 @@ export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
 
   useEffect(() => {
     dispatch(dailyTableSlice.actions.loadTableRequest({ date, isMorning }));
+    return () => {
+      dispatch(dailyTableSlice.actions.resetTable());
+    };
   }, [dispatch, date, isMorning]);
 
   const onUpdateDataHandler = (rowId: string) => (cellName: string) => (value: string | null) => {

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, CSSProperties, KeyboardEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, CSSProperties, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { NEW_ROW_ID } from '../../bll/reducers/dailyTable-reducer';
 
@@ -21,19 +21,25 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
     setTempValue(e.currentTarget.value);
   };
 
-  const activateViewMode = () => {
-    if (rowId === NEW_ROW_ID) {
-      tempValue && onChange(eval(tempValue));
-      setTempValue('');
-    } else {
-      onChange(tempValue ? eval(tempValue) : tempValue);
+  const plusInTempValue = (str: string) => {
+    let newStr = str;
+    if (str.indexOf('+') >= 0) {
+      let arr = str.split('+');
+      let sum = 0;
+      arr.forEach((item) => {
+        sum += Number(item);
+      });
+      newStr = String(sum);
     }
+    return newStr;
   };
 
-  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      activateViewMode();
+  const activateViewMode = () => {
+    if (rowId === NEW_ROW_ID) {
+      tempValue && onChange(plusInTempValue(tempValue));
       setTempValue('');
+    } else {
+      onChange(tempValue ? plusInTempValue(tempValue) : tempValue);
     }
   };
 
@@ -50,7 +56,6 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
       onChange={changeInputValue}
       placeholder={placeholder}
       onBlur={activateViewMode}
-      onKeyPress={onEnterPress}
       variant={'standard'}
     />
   );
