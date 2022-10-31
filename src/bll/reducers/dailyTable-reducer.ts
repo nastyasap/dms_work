@@ -70,10 +70,7 @@ export const dailyTableSlice = createSlice({
     },
     deleteRow(state, action: PayloadAction<{ rowId: string }>) {
       const index = state.dailyTable.findIndex((obj) => obj._id === action.payload.rowId);
-      delete state.dailyTable[index];
+      state.dailyTable.splice(index, 1);
     },
-    // deleteRowSuccess(state, action: PayloadAction<{ rowId: string }>) {
-    //
-    // },
   },
 });

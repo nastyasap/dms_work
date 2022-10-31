@@ -1,4 +1,4 @@
-import React, { ChangeEvent, CSSProperties, KeyboardEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, CSSProperties, useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { NEW_ROW_ID } from '../../bll/reducers/dailyTable-reducer';
 
@@ -25,13 +25,11 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
     let newStr = str;
     if (str.indexOf('+') >= 0) {
       let arr = str.split('+');
-      arr.reduce((acc: number, num: string) => {
-        if (num !== '+') {
-          acc += Number(num);
-          newStr = String(acc);
-        }
-        return acc;
-      }, 0);
+      let sum = 0;
+      arr.forEach((item) => {
+        sum += Number(item);
+        newStr = String(sum);
+      });
     }
     return newStr;
   };
@@ -42,13 +40,6 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
       setTempValue('');
     } else {
       onChange(tempValue ? plusInTempValue(tempValue) : tempValue);
-    }
-  };
-
-  const onEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      activateViewMode();
-      setTempValue('');
     }
   };
 
@@ -65,7 +56,6 @@ export const EditableSpan: React.FC<Props> = ({ rowId, value, onChange, disabled
       onChange={changeInputValue}
       placeholder={placeholder}
       onBlur={activateViewMode}
-      onKeyPress={onEnterPress}
       variant={'standard'}
     />
   );

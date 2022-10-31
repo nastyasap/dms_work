@@ -33,7 +33,7 @@ interface Props {
 }
 
 export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
-  let data = useSelector(getDailyTableData);
+  const data = useSelector(getDailyTableData);
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
 

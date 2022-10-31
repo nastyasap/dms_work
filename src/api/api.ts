@@ -21,7 +21,7 @@ export const dailyTableApi = {
   },
 
   removeRow(rowId: string) {
-    return instance.delete(`table/:${rowId}`);
+    return instance.delete(`table/${rowId}`);
   },
 };
 
