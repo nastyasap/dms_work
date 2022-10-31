@@ -10,7 +10,7 @@ interface Props {
   rowIndex: number;
   disabled?: boolean;
   value: string | null;
-  placeHolder: string;
+  placeHolder?: string;
   onChangeData: (cellName: string) => (value: string | null) => void;
 }
 

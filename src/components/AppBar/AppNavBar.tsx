@@ -5,19 +5,19 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import s from './NavBar.module.scss';
 
 const pages = [
-  <NavLink to="/" className={s.link}>
+  <Link to="/" className={s.link}>
     Ведомость по дням
-  </NavLink>,
-  <NavLink to="/" className={s.link}>
+  </Link>,
+  <Link to="/" className={s.link}>
     Статистика по расходам
-  </NavLink>,
-  <NavLink to="/fuel" className={s.link}>
+  </Link>,
+  <Link to="/fuel" className={s.link}>
     Учет топлива
-  </NavLink>,
+  </Link>,
 ];
 
 export const AppNavBar = () => {
@@ -44,8 +44,8 @@ export const AppNavBar = () => {
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'space-around' }}>
-            {pages.map((page, key) => (
-              <Button key={key} sx={{ my: 2, color: 'white', display: 'block' }}>
+            {pages.map((page, index) => (
+              <Button key={index} sx={{ my: 2, color: 'white', display: 'block' }}>
                 {page}
               </Button>
             ))}
