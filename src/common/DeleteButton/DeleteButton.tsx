@@ -9,15 +9,10 @@ interface Props {
 }
 
 export const DeleteButton: React.FC<Props> = ({ rowId }) => {
-  const {setDeleteTableRow} = useModals()
+  const { setDeleteTableRow } = useModals();
 
   return (
-    <IconButton
-      onClick={() => setDeleteTableRow(rowId)}
-      sx={{ marginTop: '7px' }}
-      aria-label="delete"
-      disabled={rowId === NEW_ROW_ID}
-    >
+    <IconButton onClick={() => setDeleteTableRow(rowId)} aria-label="delete" disabled={rowId === NEW_ROW_ID}>
       <DeleteIcon />
     </IconButton>
   );

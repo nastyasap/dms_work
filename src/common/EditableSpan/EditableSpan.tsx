@@ -3,8 +3,8 @@ import { TextField } from '@mui/material';
 import { NEW_ROW_ID } from '../../bll/reducers/dailyTable-reducer';
 
 interface Props {
-  value: string | null;
-  onChange: (value: string | null) => void;
+  value: string;
+  onChange: (value: string) => void;
   disabled?: boolean;
   placeholder?: string;
   rowId: string;

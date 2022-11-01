@@ -44,7 +44,7 @@ export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
     };
   }, [dispatch, date, isMorning]);
 
-  const onUpdateDataHandler = (rowId: string) => (cellName: string) => (value: string | null) => {
+  const onUpdateDataHandler = (rowId: string) => (cellName: string) => (value: string) => {
     rowId !== NEW_ROW_ID
       ? dispatch(dailyTableSlice.actions.updateRow({ data: { [cellName]: value }, rowId }))
       : dispatch(dailyTableSlice.actions.addRow({ [cellName]: value }));

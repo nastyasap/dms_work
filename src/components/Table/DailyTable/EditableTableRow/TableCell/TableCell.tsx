@@ -9,9 +9,9 @@ interface Props {
   cellIndex: number;
   rowIndex: number;
   disabled?: boolean;
-  value: string | null;
+  value: string;
   placeHolder?: string;
-  onChangeData: (cellName: string) => (value: string | null) => void;
+  onChangeData: (cellName: string) => (value: string) => void;
 }
 
 export const TableCell: React.FC<Props> = ({
