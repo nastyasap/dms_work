@@ -3,10 +3,11 @@ import { DailyTableRow } from '../../../../api/api';
 import { StyledTableRow } from '../../StyledTable';
 import { TableCell } from './TableCell/TableCell';
 import { DeleteButton } from '../../../../common/DeleteButton/DeleteButton';
+import Cell from '@mui/material/TableCell';
 
 interface Props {
   rowData: DailyTableRow;
-  onChangeData: (cellName: string) => (value: string | null) => void;
+  onChangeData: (cellName: string) => (value: string) => void;
   rowIndex: number;
 }
 
@@ -38,14 +39,20 @@ export const EditableTableRow: React.FC<Props> = ({ rowData, onChangeData, rowIn
         { name: 'total', placeHolder: 'всего', data: total, disabled: true },
         { name: 'removeRow', placeHolder: 'удалить', data: null },
       ].map((item, index) => {
-        if (item.name === 'removeRow') return <DeleteButton rowId={rowData._id} />;
+        if (item.name === 'removeRow') {
+          return (
+            <Cell sx={{ padding: '0' }} key={item.name}>
+              <DeleteButton rowId={rowData._id} />
+            </Cell>
+          );
+        }
         return (
           <TableCell
             key={rowData._id + item.name}
             onChangeData={onChangeData}
             cellName={item.name}
             placeHolder={item.placeHolder}
-            value={item.data}
+            value={item.data || ''}
             cellIndex={index}
             rowIndex={rowIndex}
             rowId={rowData._id}

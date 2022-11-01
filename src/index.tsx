@@ -8,13 +8,16 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './common/theme/theme';
 import { HashRouter } from 'react-router-dom';
+import { ModalsProvider } from './components/Modals/ModalsProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <HashRouter>
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <App />
+        <ModalsProvider>
+          <App />
+        </ModalsProvider>
       </Provider>
     </ThemeProvider>
   </HashRouter>,
