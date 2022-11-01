@@ -1,4 +1,4 @@
-export const style = {
+export const modalWrapper = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',

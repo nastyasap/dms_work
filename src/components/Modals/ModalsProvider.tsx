@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { DeleteButtonModal } from './DeleteButtonModal/DeleteButtonModal';
+import DeleteButtonModal from './DeleteButtonModal';
 
 const ModalsContext = React.createContext({
   setDeleteTableRow: (value: null | string) => {},
