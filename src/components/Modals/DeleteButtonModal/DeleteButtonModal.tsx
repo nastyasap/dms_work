@@ -20,7 +20,7 @@ export const DeleteButtonModal: React.FC<Props> = ({ rowId, onClose }) => {
   };
   return (
     <Modal
-      open={rowId !== null}
+      open={rowId !== ''}
       onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
