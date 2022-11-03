@@ -24,13 +24,11 @@ export const TotalSumRow: React.FC<Props> = ({ tableData }) => {
   ];
   return (
     <StyledTableRow>
-      <StyledTableCell sx={{ fontWeight: '700' }} colSpan={2}>
-        Всего
-      </StyledTableCell>
+      <StyledTableCell colSpan={2}>Всего</StyledTableCell>
       {totalCounts.map((cell) => {
         return <StyledTableCell key={cell.name}>{cell.value}</StyledTableCell>;
       })}
-      <StyledTableCell sx={{ fontWeight: '700' }} colSpan={2}>
+      <StyledTableCell colSpan={2}>
         {totalCounts.reduce((acc: number, item: { name: string; value: number }) => {
           if (item.name === 'totalCash' || item.name === 'totalBort') acc += item.value;
           else acc -= item.value;
