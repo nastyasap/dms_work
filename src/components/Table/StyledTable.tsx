@@ -10,7 +10,8 @@ export const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontFamily: 'Comfortaa',
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 11,
+    fontSize: 16,
+    fontWeight: 600,
     padding: 8,
     fontFamily: 'Comfortaa',
   },
