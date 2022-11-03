@@ -28,7 +28,7 @@ export const DailyPage: React.FC<Props> = ({ isMorning, date, onArrowBackClick, 
       <span className={cn(s.text, s.bold)}>{isMorning === '1' ? 'Утренняя пересменка' : 'Вечерняя пересменка'}</span>
       <Comment />
       <div className={s.tableWrapper}>
-        <DailyTable date={date || ''} isMorning={Number(isMorning)} />
+        <DailyTable />
       </div>
       <div className={s.arrowButtons}>
         <Button onClick={onArrowBackClick}>

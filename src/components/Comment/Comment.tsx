@@ -8,6 +8,7 @@ import { CommentField } from './CommentField';
 
 export const Comment: React.FC = () => {
   const [open, setOpen] = useState(false);
+
   return (
     <Box sx={commentWrapper}>
       <Button onClick={() => setOpen(!open)} variant={'outlined'}>

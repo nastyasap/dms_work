@@ -7,9 +7,8 @@ const instance = axios.create({
 export const dailyTableApi = {
   getDataTable(date: string, isMorning: number) {
     return instance.get<{
-      table: { _id: string };
+      table: { _id: string; comment: string };
       rows: DailyTableRow[];
-      comment: string;
     }>(`table/${date}/${isMorning}`);
   },
 
@@ -22,7 +21,7 @@ export const dailyTableApi = {
   },
 
   addComment(tableId: string, comment: string) {
-    return instance.put(`table/${tableId}`, comment);
+    return instance.put<{ comment: string }>(`table/comment/${tableId}`, { comment });
   },
 
   removeRow(rowId: string) {

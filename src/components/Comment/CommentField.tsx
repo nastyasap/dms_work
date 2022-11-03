@@ -1,15 +1,21 @@
 import * as React from 'react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dailyTableSlice } from '../../bll/reducers/dailyTable-reducer';
 import { Box, TextField } from '@mui/material';
 import { commentField, text } from './Comment.style';
 import useDebounce from '../../common/functions/useDebounce';
+import { getComment } from '../../bll/selectors/dailyTable-selector';
 
 export const CommentField: React.FC = () => {
-  const [value, setValue] = useState('');
+  const comment = useSelector(getComment);
+  const [value, setValue] = useState(comment);
   const dispatch = useDispatch();
   const debouncedFieldValue = useDebounce(value, 1000);
+
+  useEffect(() => {
+    setValue(comment);
+  }, [comment]);
 
   useEffect(() => {
     dispatch(dailyTableSlice.actions.addComment(debouncedFieldValue));

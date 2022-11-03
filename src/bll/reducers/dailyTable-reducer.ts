@@ -40,17 +40,19 @@ export const dailyTableSlice = createSlice({
     },
     resetTable(state, action: PayloadAction) {
       state.dailyTable = [];
+      state.comment = '';
     },
     loadTableSuccess(
       state,
       action: PayloadAction<{
         rows: DailyTableRow[];
-        table: { _id: string };
+        table: { _id: string; comment: string };
       }>,
     ) {
       state.isLoading = false;
       state.dailyTable = [...action.payload.rows, EMPTY_DATA];
       state.id = action.payload.table._id;
+      state.comment = action.payload.table.comment;
     },
     addRow(state, action: PayloadAction<Partial<DailyTableRow>>) {},
     addRowSuccess(state, action: PayloadAction<DailyTableRow>) {

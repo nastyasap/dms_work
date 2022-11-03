@@ -28,7 +28,7 @@ export const ModalsProvider: React.FC<Props> = ({ children }) => {
       <>
         {ReactDOM.createPortal(
           <>
-            <DeleteButtonModal rowId={deleteTableRow} onClose={() => setDeleteTableRow(null)} />
+            <DeleteButtonModal rowId={deleteTableRow || ''} onClose={() => setDeleteTableRow(null)} />
           </>,
           document.body,
         )}
