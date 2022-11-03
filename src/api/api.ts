@@ -9,6 +9,7 @@ export const dailyTableApi = {
     return instance.get<{
       table: { _id: string };
       rows: DailyTableRow[];
+      comment: string;
     }>(`table/${date}/${isMorning}`);
   },
 
@@ -18,6 +19,10 @@ export const dailyTableApi = {
 
   createDataTable(tableId: string, data: Partial<DailyTableRow>) {
     return instance.post<DailyTableRow>(`table/${tableId}`, data);
+  },
+
+  addComment(tableId: string, comment: string) {
+    return instance.put(`table/${tableId}`, comment);
   },
 
   removeRow(rowId: string) {
