@@ -22,19 +22,18 @@ export const TotalSumRow: React.FC<Props> = ({ tableData }) => {
     { name: 'totalSpendings', value: countTotalProperty('spendings') },
     { name: 'totalAvans', value: countTotalProperty('avans') },
   ];
+  const totalSum = totalCounts.reduce((acc: number, item: { name: string; value: number }) => {
+    if (['totalCash', 'totalBort'].includes(item.name)) acc += item.value;
+    else acc -= item.value;
+    return +acc.toFixed(2);
+  }, 0);
   return (
     <StyledTableRow>
       <StyledTableCell colSpan={2}>Всего</StyledTableCell>
       {totalCounts.map((cell) => {
         return <StyledTableCell key={cell.name}>{cell.value}</StyledTableCell>;
       })}
-      <StyledTableCell colSpan={2}>
-        {totalCounts.reduce((acc: number, item: { name: string; value: number }) => {
-          if (item.name === 'totalCash' || item.name === 'totalBort') acc += item.value;
-          else acc -= item.value;
-          return +acc.toFixed(2);
-        }, 0)}
-      </StyledTableCell>
+      <StyledTableCell colSpan={2}>{totalSum}</StyledTableCell>
     </StyledTableRow>
   );
 };
