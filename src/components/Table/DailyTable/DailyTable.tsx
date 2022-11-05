@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
@@ -28,22 +27,10 @@ const TABLE_CELLS = [
   'X',
 ];
 
-interface Props {
-  date: string;
-  isMorning: number;
-}
-
-export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
+export const DailyTable: React.FC = () => {
   const data = useSelector(getDailyTableData);
   const isLoading = useSelector(getIsLoading);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(dailyTableSlice.actions.loadTableRequest({ date, isMorning }));
-    return () => {
-      dispatch(dailyTableSlice.actions.resetTable());
-    };
-  }, [dispatch, date, isMorning]);
 
   const onUpdateDataHandler = (rowId: string) => (cellName: string) => (value: string) => {
     rowId !== NEW_ROW_ID
@@ -64,7 +51,7 @@ export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
           </TableRow>
           {isLoading && (
             <TableRow>
-              <TableCell style={{ padding: '0', border: 'none' }} colSpan={10}>
+              <TableCell style={{ padding: '0', border: 'none' }} colSpan={11}>
                 <LinearProgress />
               </TableCell>
             </TableRow>

@@ -3,6 +3,7 @@ import { DailyTableRow } from '../../api/api';
 
 interface InitialState {
   dailyTable: DailyTableRow[];
+  comment: string;
   isLoading: boolean;
   id: string | null;
 }
@@ -11,6 +12,7 @@ const initialState: InitialState = {
   dailyTable: [],
   isLoading: false,
   id: null,
+  comment: '',
 };
 
 export const NEW_ROW_ID = 'empty';
@@ -38,17 +40,19 @@ export const dailyTableSlice = createSlice({
     },
     resetTable(state, action: PayloadAction) {
       state.dailyTable = [];
+      state.comment = '';
     },
     loadTableSuccess(
       state,
       action: PayloadAction<{
         rows: DailyTableRow[];
-        table: { _id: string };
+        table: { _id: string; comment: string };
       }>,
     ) {
       state.isLoading = false;
       state.dailyTable = [...action.payload.rows, EMPTY_DATA];
       state.id = action.payload.table._id;
+      state.comment = action.payload.table.comment;
     },
     addRow(state, action: PayloadAction<Partial<DailyTableRow>>) {},
     addRowSuccess(state, action: PayloadAction<DailyTableRow>) {
@@ -71,6 +75,9 @@ export const dailyTableSlice = createSlice({
     deleteRow(state, action: PayloadAction<string>) {
       const index = state.dailyTable.findIndex((obj) => obj._id === action.payload);
       state.dailyTable.splice(index, 1);
+    },
+    addComment(state, action: PayloadAction<string>) {
+      state.comment = action.payload;
     },
   },
 });

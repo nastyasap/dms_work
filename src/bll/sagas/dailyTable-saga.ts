@@ -22,11 +22,17 @@ function* deleteRowInDailyTable({ payload }: ReturnType<typeof dailyTableSlice.a
   yield call(dailyTableApi.removeRow, payload);
 }
 
+function* addCommentToDailyTable({ payload }: ReturnType<typeof dailyTableSlice.actions.addComment>) {
+  const id: string = yield select(getTableId);
+  yield call(dailyTableApi.addComment, id, payload);
+}
+
 export function* dailyTableSaga() {
   yield all([
     takeLatest(dailyTableSlice.actions.loadTableRequest.type, fetchDailyTable),
     takeLatest(dailyTableSlice.actions.addRow.type, addRowToDailyTable),
     takeLatest(dailyTableSlice.actions.updateRow.type, updateRowInDailyTable),
     takeLatest(dailyTableSlice.actions.deleteRow.type, deleteRowInDailyTable),
+    takeLatest(dailyTableSlice.actions.addComment.type, addCommentToDailyTable),
   ]);
 }
