@@ -12,6 +12,7 @@ import { EditableTableRow } from './EditableTableRow/EditableTableRow';
 import { getDailyTableData, getIsLoading } from '../../../bll/selectors/dailyTable-selector';
 import { dailyTableSlice, NEW_ROW_ID } from '../../../bll/reducers/dailyTable-reducer';
 import { LinearProgress, TableCell } from '@mui/material';
+import { TotalSumRow } from './TotalSumRow/TotalSumRow';
 
 const TABLE_CELLS = [
   'Номер авто',
@@ -80,6 +81,7 @@ export const DailyTable: React.FC<Props> = ({ date, isMorning }) => {
               />
             );
           })}
+          <TotalSumRow tableData={data} />
         </TableBody>
       </Table>
     </TableContainer>
